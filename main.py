@@ -29,8 +29,6 @@ list_b.pop()
 list_s.pop()
 # ค่าสถิติในด้านต่างๆ
 # print(df_s['no'])
-print(list_idx1)
-print(list_p)
 print(df.head())
 print(clean_df1.describe())
 print('ค่าเฉลี่ยอายุคนที่ติดCovid19 =',
