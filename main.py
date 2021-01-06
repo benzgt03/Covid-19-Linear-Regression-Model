@@ -9,8 +9,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
 import pandas as pd  # import libary ต่างๆที่จะใช้
 
-c = []
-b = [1, 2, 3, 4, 5]
+
 covid_19 = pd.read_excel(r'C:\Users\Admin\Desktop\PortGT03\Covid19.xlsx')
 # print (covid_19)
 df = pd.DataFrame(covid_19)
