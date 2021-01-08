@@ -1,8 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import xlrd
-import openpyxl
-import seaborn as sns
+from sklearn.preprocessing import PolynomialFeatures
 import datetime as dt
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
@@ -94,22 +92,26 @@ y = y.reshape(-1, 1)
 # print(len(X)) # Check length X
 # print(len(y)) # Check length y
 
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_state=60)
+poly_reg = PolynomialFeatures(degree = 5)
+X_poly = poly_reg.fit_transform(X_train)
+poly_reg.fit(X_poly, y_train)
+lm2 = LinearRegression()
+lm2.fit(X_poly, y_train)
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_state=1000)
-lm = LinearRegression()
-lm.fit(X_train, y_train)
-print('lm score =', lm.score(X_train, y_train))
-y_pred = lm.predict(X_test)
-print("Intercept =", lm.intercept_)
-print("Coefficient =", lm.coef_)
-print('Coefficient of determination: %.2f (The best case is 1)' % r2_score(y_test, y_pred))
-print('Root Mean squared error: %.2f' % (np.sqrt(mean_squared_error(y_test, y_pred))))
+print("polyIntercept =", lm2.intercept_)
+print("polyCoefficient =", lm2.coef_)
+print('polylm score =', lm2.score(X_poly, y_train))
+y_pred = lm2.predict(poly_reg.fit_transform(X))
+print('polyCoefficient of determination: %.2f (The best case is 1)' % r2_score(y, y_pred))
+print('polyRoot Mean squared error: %.2f' % (np.sqrt(mean_squared_error(y, y_pred))))
 
 fig2 = plt.figure()
-prd = lm.predict(X_test)
+prd1 = lm2 .predict(poly_reg.fit_transform(X))
 axes3 = fig2.add_axes([0.1, 0.1, 0.8, 0.8])
-axes3.plot(X_test, prd, 'r')
-axes3.set_title('Slope from LNRegression Model')
+axes3.plot(X, lm2.predict(poly_reg.fit_transform(X)))
+axes3.set_title('Slope from PolyRegression Model')
+axes3.scatter(X_train,y_train)
 
 for i in range(2, 4):
     list_p.pop()
