@@ -78,7 +78,7 @@ axes[1].set_xlabel('Amount')
 axes[1].set_title('Covid 19 x-y fullscreen(normal graph)')
 
 
-# sns.pairplot(df) # ดูตัวอย่างเปรียบเทียบจากข้อมูล
+
 y = np.asarray(df_b['no'])
 index = 296
 y = np.delete(y, index)
@@ -92,6 +92,31 @@ y = y.reshape(-1, 1)
 # print(len(X)) # Check length X
 # print(len(y)) # Check length y
 
+
+#Train Linear regression
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_state=60)
+
+#Linear Regression
+lm = LinearRegression()
+lm.fit(X_train, y_train)
+print('lm score =', lm.score(X_train, y_train))
+y_pred = lm.predict(X_test)
+print("Intercept =", lm.intercept_)
+print("Coefficient =", lm.coef_)
+print('Coefficient of determination: %.2f (The best case is 1)' % r2_score(y_test, y_pred))
+print('Root Mean squared error: %.2f' % (np.sqrt(mean_squared_error(y_test, y_pred))))
+
+
+
+#Linear Regression plot
+figure1 = plt.figure()
+axes5 = figure1.add_axes([0.1, 0.1, 0.8, 0.8])
+axes5.scatter(X_train,y_train)
+prd = lm.predict(X_test)
+axes5.plot(X_test, prd, 'r')
+
+
+#Poly Regression plot
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_state=60)
 poly_reg = PolynomialFeatures(degree = 5)
 X_poly = poly_reg.fit_transform(X_train)
@@ -106,6 +131,7 @@ y_pred = lm2.predict(poly_reg.fit_transform(X))
 print('polyCoefficient of determination: %.2f (The best case is 1)' % r2_score(y, y_pred))
 print('polyRoot Mean squared error: %.2f' % (np.sqrt(mean_squared_error(y, y_pred))))
 
+#Polyplot
 fig2 = plt.figure()
 prd1 = lm2 .predict(poly_reg.fit_transform(X))
 axes3 = fig2.add_axes([0.1, 0.1, 0.8, 0.8])
@@ -113,15 +139,14 @@ axes3.plot(X, lm2.predict(poly_reg.fit_transform(X)))
 axes3.set_title('Slope from PolyRegression Model')
 axes3.scatter(X_train,y_train)
 
+#Classify by Nationality
 for i in range(2, 4):
     list_p.pop()
     list_idx1.pop()
 list_idx2 = [w[:2] for w in list_idx1]
 print("List of Fullname Country =",list_idx1)
-
 fig3 = plt.figure()
 axes4 = fig3.add_axes([0.1, 0.03, 0.8, 0.925])
 axes4.barh(list_idx2, list_p)
 axes4.set_title('Classify by nationality')
-
 plt.show()
