@@ -114,7 +114,7 @@ axes5 = figure1.add_axes([0.1, 0.1, 0.8, 0.8])
 axes5.scatter(X,y)
 prd = lm.predict(X_test)
 axes5.plot(X_test, prd, 'r')
-
+axes5.set_title('Slope from Linear Regression Model')
 
 #Poly Regression plot
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_state=60)
