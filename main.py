@@ -111,7 +111,7 @@ print('Root Mean squared error: %.2f' % (np.sqrt(mean_squared_error(y_test, y_pr
 #Linear Regression plot
 figure1 = plt.figure()
 axes5 = figure1.add_axes([0.1, 0.1, 0.8, 0.8])
-axes5.scatter(X_train,y_train)
+axes5.scatter(X,y)
 prd = lm.predict(X_test)
 axes5.plot(X_test, prd, 'r')
 
@@ -137,7 +137,7 @@ prd1 = lm2 .predict(poly_reg.fit_transform(X))
 axes3 = fig2.add_axes([0.1, 0.1, 0.8, 0.8])
 axes3.plot(X, lm2.predict(poly_reg.fit_transform(X)))
 axes3.set_title('Slope from PolyRegression Model')
-axes3.scatter(X_train,y_train)
+axes3.scatter(X,y)
 
 #Classify by Nationality
 for i in range(2, 4):
